@@ -4,10 +4,12 @@ from customers import Customers
 app = Flask(__name__)
 app.secret_key = "new store"
 
+
 @app.route('/')
 def index():
     #landpage click to add customer or view account database
     return render_template('index.html')
+
 
 @app.route('/form')
 def form():
@@ -30,13 +32,10 @@ def create_customers():
 
 @app.route('/display')
 def display_customers():
-    
     customers = Customers.display_list()
-
     return render_template('readall.html', customers = customers)
     
-
-
+    
 if __name__=="__main__":
     app.run(debug = True)
 
