@@ -1,9 +1,11 @@
-from flask import Flask, render_template, redirect, session, request
+from flask import Flask, render_template, redirect, request, session
 # import the class from customers.py
-from customers import Customers
 
 app = Flask(__name__)
+
 app.secret_key = "new store"
+from customers import Customers
+
 
 
 @app.route('/')
@@ -48,6 +50,7 @@ def edit_customer(customer_id):
         'id': customer_id
     }
     customer = Customers.get_customer_by_id(data)
+    print(customer)
     return render_template('edit_customer.html', customer = customer)
 
 
@@ -60,7 +63,7 @@ def update_customer(customer_id):
         'email_address': request.form['email_address']   
     }
     Customers.update_one(data)
-    return redirect('/select/<int:customer_id>/show')
+    return redirect(f"/select/{customer_id}/show")
 
 
 @app.route('/select/<int:customer_id>/delete')
